@@ -1,0 +1,25 @@
+---
+title: "元宝分析"
+author: "刘晓东 韩静"
+date: "2014年11月19日"
+output: word_document
+---
+#一、基于vip等级的用户每天消耗元宝统计
+##appstore*7月13日*基于VIP等级的元宝消耗统计
+```{r echo=FALSE}
+library(ggplot2)
+appstoreVip <- read.csv("resources/appstore_vip_11_11.csv",header=T)
+p <- ggplot(data=appstoreVip,aes(x=vip_level,y=as.numeric(total_gem_used)))
+p + geom_histogram(binwidth=4)
+```
+
+
+##appstore活跃用户*7月1日*至*10月31日*元宝消耗统计
+
+```{r echo=FALSE}
+library(ggplot2)
+appstoreGoldIngot <- read.csv("resources/appstore_vip_goldingot.csv",header=T)
+qplot(as.Date(date),total_gem_used,data=appstoreGoldIngot,colour=factor(vip_level))
+```
+
+###结论：

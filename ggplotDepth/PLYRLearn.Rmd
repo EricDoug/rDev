@@ -1,0 +1,16 @@
+##plyr包简介
+
+>使用分面(faceting)参数，ggplot2可以同时在数据的多个子集上作出相同的图。相应地，plyr包中的ddply()函数能够同时在数据的多个子集上作统一汇总。plyr包提供了一整套工具集来处理列表(list)、数组(array)和数据框(data.frame)，把复杂的数据分割成几个部分，分别对各个部分进行处理，最后把这些结果综合到一起。ddploy()函数能够根据行的取值，把数据框分解成几个子集，分别把各个子集输入某个函数，最后把结果综合在一个数据框内。
+
+>*  基本用户
+
+**ddploy(.data,.variables,.fun,...)**
+
+>**选取各个颜色里最小的钻石**
+```{r}
+library(Lahman)
+library(plyr)
+library(ggplot2)
+ddply(diamonds,.color,subset,carat == min(carat))
+```
+

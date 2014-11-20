@@ -1,0 +1,25 @@
+---
+title: "Demo01"
+author: "EricDoug"
+date: "2014年11月19日"
+output: html_document
+---
+#Here is a document.
+```{r include=FALSE}
+require(mosaic)
+require(tigerstats)
+```
+####Now let's run a function.How about statistics for fastest speed driven in the 'mat111survey' data?
+```{r echo=FALSE}
+favstats(~fastest,data=m111survey)
+```
+
+>**Let's make a density plot of the fastest speed ever driven:**
+
+```{r echo=FALSE,fig.width=3.5,fig.height=3}
+densityplot(~fastest,data=m111survey,
+            xlab="fastest speed (mph)",
+            main="Fastest Speed Ever Driven")
+```
+
+

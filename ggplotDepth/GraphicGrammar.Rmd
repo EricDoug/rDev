@@ -1,0 +1,16 @@
+---
+title: "GraphicGrammar"
+author: "EricDoug"
+date: "2014年11月19日"
+output: html_document
+---
+#第 3 章 语法突破
+
+##耗油量数据
+
+##绘制散点图
+```{r}
+library(ggplot2)
+qplot(displ,hwy,data = mpg,colour = factor(cyl))
+```
+

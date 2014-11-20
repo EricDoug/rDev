@@ -1,0 +1,19 @@
+---
+title: "Demo01"
+author: "EricDoug"
+date: "2014年11月19日"
+output: html_document
+---
+
+```{r}
+library(ggplot2)
+#指定数据和映射关系
+p <- ggplot(data=iris,mapping=aes(x=Sepal.Length,y=Sepal.Width,shape=Species))
+p+geom_point(cex=2)+stat_smooth()
+```
+
+```{r}
+p <- ggplot(data=iris,mapping=aes(x=Sepal.Length,fill=Species))
+p+geom_histogram(colour="black")+facet_wrap(~Species)
+```
+

@@ -1,0 +1,79 @@
+#散点图绘制
+##传统 plot()
+```{r}
+plot(mtcars$wt,mtcars$mpg)
+```
+
+##快速绘制 qplot()
+
+```{r}
+library(ggplot2)
+qplot(mtcars$wt,mtcars$mpg)
+```
+
+##ggplot()
+
+如果绘图所用的两个参数向量包含在同一个数据框内。
+```{r}
+library(ggplot2)
+p <- ggplot(mtcars,aes(x=wt,y=mpg))
+p + geom_point()
+```
+
+###绘制基本散点图
+
+运行geom_point()函数，分别映射一个变量到x和y
+```{r}
+library(gcookbook)  #为了使用数据
+heightweight[,c("ageYear","heightIn")]
+p <- ggplot(heightweight,aes(x=ageYear,y=heightIn))
+p + geom_point()
+```
+
+> 还可以使用geom_point(size=1.5,shape=21),定义散点的大小和形状
+
+###使用点形和颜色属性，并基于某变量对数据进行分组
+
+>通过将变量sex映射给colour或shape，我们可以按变量sex对数据进行分组。
+
+```{r}
+library(gcookbook)
+heightweight[,c("sex","ageYear","heightIn")]
+ggplot(heightweight,aes(x=ageYear,y=heightIn,colour=sex)) + geom_point()
+ggplot(heightweight,aes(x=ageYear,y=heightIn,shape=sex)) + geom_point()
+```
+
+>*分组变量必须是分类变量，换言之，它必须是因子型或者字符型的向量。如果分组变量以数值型变量进行存储，则需要将它转化为因子型变量之后，才能以其作为分组变量。*
+
+可以将一个变量同时映射给shape和colour属性。
+
+```{r}
+ggplot(heightweight,aes(x=ageYear,y=heightIn,shape=sex,colour=sex))+geom_point()
+```
+
+可以通过调用scale_shape_manual()和scale_colour_manual(),scala_colour_brewer()修改
+
+```{r}
+p <- ggplot(heightweight,aes(x=ageYear,y=heightIn,shape=sex,colour=sex))
+p+ geom_point() + scale_shape_manual(values=c(1,2)) + scale_colour_brewer(palette="Set1")
+```
+
+###使用不同与默认设置的点形
+
+通过指定geom_point()函数的点形(shape)参数可以设定散点图中所有数据点的点形。
+>* 点形1-20的点的颜色，包括实心区域的颜色都可由color参数来控制。对于点形21-25而言，边框线和实心区域的颜色则分别由colour和fill参数来控制。可以用点形和填充色（空心或实心）属性分别表示两个不同的变量。
+```{r}
+ggplot(heightweight,aes(x=ageYear,y=heightIn)) + geom_point(shape = 4)
+```
+
+> 在数据集中增加一个用来标识儿童体重是否超过100磅的列。
+
+```{r}
+hw <- heightweight   #生成一个数据副本
+hw$weightGroup <- cut(hw$weightLb,breaks=c(-Inf,100,Inf),labels=c("<100",">=100")) #将数据按照是否大于100磅分为两组
+#使用具有颜色和填充色的点形及对应于空值(NA)和填充色的颜色
+p <- ggplot(hw,aes(x=ageYear,y=heightIn,shape=sex,fill=weightGroup))
+p+geom_point(size=2.5)+scale_shape_manual(values=c(21,24))+scale_fill_manual(values=c(NA,"black"),guide=guide_legend(override.aes=list(shape=21)))
+
+```
+

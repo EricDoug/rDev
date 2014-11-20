@@ -1,0 +1,143 @@
+---
+title: "qplotLearn"
+author: "EricDoug"
+date: "2014年11月19日"
+output: html_document
+---
+#第2章 从qplot开始入门
+##数据集
+>diamonds数据集,该数据集反应钻石的之类的四个"C"（克拉重量(carat)、切工(cut)、颜色(color)和净度(clarity)),以及五个物理指标（深度(depth)、钻面宽度(table)、x、y、z）
+
+```{r echo=FALSE}
+library(ggplot2)
+dsmall <- diamonds[sample(nrow(diamonds),10),]
+dsmall
+```
+
+##基本用法
+>绘制一张展现钻石价格与重量之间的关系的散点图。
+
+```{r }
+qplot(carat,price,data=diamonds)
+```
+
+>将变量的函数(log)作为参数
+
+```{r }
+qplot(log(carat),log(price),data = diamonds)
+```
+
+>钻石的体积和其质量直接的关系
+
+```{r }
+qplot(carat,x*y*z,data = diamonds)
+```
+
+>向重量和价格的散点图添加颜色和切工的信息
+
+```{r}
+qplot(carat,price,data = dsmall,colour = color)
+qplot(carat,price,data = dsmall,shape = cut)
+```
+
+>使用alpha图像属性，其取值从0(完全透明)变动到1（完全不透明）
+
+```{r}
+qplot(carat,price,data = diamonds,alpha = I(1/10))
+qplot(carat,price,data = diamonds,alpha = I(1/100))
+qplot(carat,price,data = diamonds,alpha = I(1/200))
+```
+
+##几何对象 (geom)
+几何对象描述了应该用何种对象来对数据进行展示，其中有些几何对象关联了对应的统计变换。它几乎可以画出任何一种类型的图形。
+
+**二维变量**
+
+>*  geom = "point"  绘制散点图。
+>*  geom = "smoooth"  将拟合一条平滑曲线
+>*  geom = "boxplot"  绘制箱线胡须图
+>*  geom = "path" 和 geom = "line" 在数据点之间绘制连线。
+
+**一维连续变量**
+
+>*  geom = "histogram" 绘制直方图
+>*  geom="freqpoly" 绘制频率多边形
+>*  geom = "desity" 绘制密度曲线
+
+**一维离散变量**
+
+>*  geom = "bar" 绘制条形图
+
+###向图中添加平滑曲线
+
+```{r}
+dsmall1 <- diamonds[sample(nrow(diamonds),100),]
+qplot(carat,price,data = dsmall1,geom = c("point","smooth"))
+qplot(carat,price,data = diamonds,geom = c("point","smooth"))
+```
+
+
+>* 利用method参数选择不同的平滑器：
+
+method = "loess",当n较小事是默认选项，使用的是局部回归的方法。关于这一算法的更多细节可以查阅帮助?loess。曲线的平滑程度是由span参数控制的，其取值范围是从0（很不平滑）到1（很平滑）。
+
+```{r}
+qplot(carat,price,data = dsmall1,geom = c("point","smooth"),span =0.2)
+qplot(carat,price,data = dsmall1,geom = c("point","smooth"),span=1)
+```
+
+**Loess对于大数据并不十分使用（内存的消耗是O(n^2)），因此当n超过1000时将默认采用另一种平滑算法。**
+
+###箱线图和扰动点图
+
+```{r}
+qplot(color,price/carat,data = diamonds,geom = "jitter",alpha = I(1/5))
+qplot(color,price/carat,data = diamonds,geom = "jitter",alpha = I(1/50))
+qplot(color,price/carat,data = diamonds,geom = "jitter",alpha = I(1/200))
+```
+
+###直方图和密度曲线图
+
+```{r}
+qplot(carat,data = diamonds,geom = "histogram")
+qplot(carat,data = diamonds,geom = "density")
+```
+
+**对于直方图，binwidth参数设定组距，从而调节平滑度**
+
+```{r}
+qplot(carat,data = diamonds,geom = "histogram",binwidth = 1,xlim = c(0,3))
+qplot(carat,data = diamonds,geom = "histogram",binwidth = 0.1,xlim = c(0,3))
+qplot(carat,data = diamonds,geom = "histogram",binwidth = 0.01,xlim = c(0,3))
+```
+
+**当一个分类被映射到某个图形属性上，几何对象会自动按这个变量进行拆分，因此，下述命令会告诉qplot()对每一种钻石颜色都绘制一次密度曲线和直方图。
+
+```{r}
+qplot(carat,data = diamonds,geom = "density",colour = color)
+qplot(carat,data = diamonds,geom = "histogram",fill = color)
+```
+
+###条形图
+
+```{r}
+qplot(color,data=diamonds,geom = "bar")
+qplot(color,data = diamonds,geom = "bar",weight = carat) + scale_y_continuous("carat")
+```
+
+###时间序列中的线条图
+
+线条图将点从左到右进行连接，而路径图则按照点在数据集中的顺序对其进行连接（线条图就等价于将数据按照X取值进行排序，然后绘制路径图）。线条图的X轴一般是时间，它展示了单个变量随时间变换的情况。路径图则展示了两个变量随时间联动的情况，时间反映在点的顺序上。
+
+```{r}
+qplot(date,unemploy/pop,data = economics,geom = "line")
+qplot(date,uempmed,data = economics,geom = "line")
+```
+
+##分面
+
+```{r}
+qplot(carat,data = diamonds,facets = color ~ .,geom = "histogram",binwidth = 0.1,xlim = c(0,3))
+qplot(carat,..density..,data = diamonds,facets = color ~.,geom = "histogram",binwidth = 0.1,xlim = c(0,3))
+```
+

@@ -1,0 +1,41 @@
+#数据清理和转换
+##一、数据清理
+```{r}
+library(ggplot2)
+#载入数据
+DISH <- read.csv("resource/Dish.csv",colClasses=c("character","numeric","numeric","numeric","numeric"))
+head(DISH)  #查看前6行
+which(is.na(DISH),arr.ind=TRUE)  #查看哪些地方的数据是缺失的
+```
+
+##二、缺失值处理
+```{r}
+DISH <- na.omit(DISH)  #删除空缺的数据
+x <- matrix(1:10,nrow = 2)
+which(x == 5)  #仅仅返回单个下标的索引
+which(x == 5,arr.ind = TRUE)  #会返回双下标的索引
+```
+
+##三、构建新变量
+>* 方式一
+```{r}
+#DISH.Range <- DISH$DISH.High - DISH$DISH.Low
+#DISH$DISH.Range <- DISH.Range
+#head(DISH)
+```
+
+>* 方式二
+```{r}
+#DISH <- transform(DISH,DISH.Range=DISH.High-DISH.Low)
+#head(DISH)
+```
+
+##四、类型转化
+把字符串数据转化为日期数据
+
+```{r}
+DISH <- transform(DISH,Date=as.Date(Date))
+DISH[1,1]-DISH[6,1]
+```
+
+

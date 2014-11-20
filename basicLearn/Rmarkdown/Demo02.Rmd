@@ -1,0 +1,52 @@
+#A Little Data Analysis
+Author: EricDoug
+Date: 2014-11-19
+
+```{r include=FALSE}
+require(mosaic)
+require(tigerstats)
+```
+
+##The Research Question
+
+Regarding the General Social Survey from the year 2002 (data frame `gss02` form the `tigerstats` package) we are interested in the following Research Question:
+
+>*Is there a relationship,in the U.S. population,between race and gun ownership?*
+
+We will first look at the question descriptively,and then we will address the inferential aspect.
+
+##Descriptive Aspect
+The variable in `gss02` that pertain to the research question are **sex** and **owngun**.
+Look at the stucture of the data frame:
+```{r}
+str(gss02)
+```
+We see at once that
+
+*  **race** is a factor variable with values:
+      *African American
+      *Hispanic
+      *Other
+      *White
+      
+* **owngun** is a factor variable with values
+    *"No" (does not own a gun)
+    *"Yes" (owns a gun)
+    
+For convenience,let's think of **race** as the explanatory variable and **owngun** as the reponse.
+
+In order to study the relationship between two these two factor variable,we produce a two-way stable:
+```{r echo=FALSE}
+RaceGun <- xtabs(~race+owngun,data=gss02)
+RaceGun
+```
+
+In order to check for a relationship,we need to look at the row percents:
+
+```{r echo=FALSE}
+rowPerc(RaceGun)
+```
+
+
+
+

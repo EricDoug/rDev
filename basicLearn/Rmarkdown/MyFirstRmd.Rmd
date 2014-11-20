@@ -1,0 +1,12 @@
+Here is a document.
+
+```{r include=FALSE}
+library(ggplot2)
+```
+Now let's run a function.How about statistics for fastest speed driven in the mat111survey data?
+图如下：
+```{r}
+qplot(carat,price,data = diamonds,alpha = I(1/200))
+```
+
+***Copyright by EricDoug

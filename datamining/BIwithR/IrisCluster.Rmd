@@ -1,0 +1,62 @@
+#鸢尾花的分类
+##一、问题描述
+
+对于同一类植物的不同品种，尝试通过他们的属性来进行分类。
+
+##二、数据描述
+
+该数据集由150个观测值组成，每个种类的鸢尾花有50个，每个观测值有5个变量，分别是花萼的长度、花萼的宽度、花瓣的长度、花瓣的宽度以及每个观测值来自于哪一个种类(Setosa、Versicolour和Virginica)。
+
+##三、加载数据
+
+```{r}
+require(datasets) #加载该包
+data(iris) #使用数据iris
+head(iris) #观察数据的前几行
+```
+
+##四、了解你的数据
+>*  通过基本的统计量来展示
+
+```{r}
+summary(iris)
+library(Hmisc)
+describe(iris)
+```
+>*  通过图表来展示
+
+柱状图
+
+```{r}
+oldpar <- par(mfcol=c(2,2))
+titles <- names(iris)[1:4]
+for(i in 1:4){
+  hist(x=iris[,i],main=paste("Histogram of",titles[i]),xlab = titles[i])}
+par(oldpar)
+```
+
+QQ图
+
+```{r}
+library(car)
+qq.plot(iris$Sepal.Width,main="Normal QQ plot of Sepal Width")
+```
+
+箱线图
+
+```{r}
+library(ggplot2)
+p <- ggplot(data=iris,mapping=aes(x=Species,y=Sepal.Width,fill=Species))
+p+geom_boxplot()
+```
+
+散点图
+
+```{r}
+p <- ggplot(data=iris,mapping=aes(x=Sepal.Length,y=Sepal.Width)) 
+p <- p+geom_point()+facet_wrap(facets=~Species)
+p+geom_smooth()
+
+```
+
+
