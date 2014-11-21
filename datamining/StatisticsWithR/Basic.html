@@ -52,10 +52,12 @@ if (window.hljs && document.readyState && document.readyState === "complete") {
 
 
 
-<div class="section level1">
-<h1>一、数据读取</h1>
-<div id="read.table" class="section level2">
-<h2>1.read.table</h2>
+<div id="r" class="section level1">
+<h1>R基础知识汇总</h1>
+<div class="section level2">
+<h2>一、读取数据</h2>
+<div id="read.table" class="section level3">
+<h3>1.read.table</h3>
 <pre class="r"><code>UG = read.table(&quot;resources/UnderGraduate.csv&quot;,header=T,fileEncoding=&quot;gbk&quot;)
 UG</code></pre>
 <pre><code>##    id.name.sex.region.birth.income.height.weight.score
@@ -110,27 +112,47 @@ UG</code></pre>
 <pre class="r"><code>class(UG)</code></pre>
 <pre><code>## [1] &quot;data.frame&quot;</code></pre>
 </div>
-<div id="r" class="section level2">
-<h2>2.R语言数据类型</h2>
-<blockquote>
-<ul>
-<li>1.数值型（numeric）</li>
-<li>2.字符型（character）</li>
-<li>3.逻辑型(logical)</li>
-<li>4.日期型(date)</li>
-<li>5.缺省值(missing value) 有些统计资料是不完整的。当一个元素或值在统计的时候是“不可得到”(not available)或“缺失值”(missing value)，相关位置可能被保留并且赋予一个特定的NA(Not Available)。</li>
-</ul>
-</blockquote>
 </div>
 <div id="r" class="section level2">
-<h2>3.R语言数据对象</h2>
+<h2>二、R语言数据类型</h2>
+<div id="numeric" class="section level3">
+<h3>1.数值型（numeric）</h3>
+</div>
+<div id="character" class="section level3">
+<h3>2.字符型（character）</h3>
+</div>
+<div id="logical" class="section level3">
+<h3>3.逻辑型(logical)</h3>
+</div>
+<div id="date" class="section level3">
+<h3>4.日期型(date)</h3>
+</div>
+<div id="missing-value" class="section level3">
+<h3>5.缺省值(missing value)</h3>
+<p>有些统计资料是不完整的。当一个元素或值在统计的时候是“不可得到”(not available)或“缺失值”(missing value)，相关位置可能被保留并且赋予一个特定的NA(Not Available)。</p>
+</div>
+</div>
+<div id="r" class="section level2">
+<h2>三、R语言数据对象</h2>
+<div id="vector" class="section level3">
+<h3>1.向量(vector)</h3>
+<p>向量是由相同基本类型元素组成的序列，相当于一维数组。</p>
+</div>
+<div id="matrix" class="section level3">
+<h3>2.矩阵(matrix)</h3>
+</div>
+<div id="array" class="section level3">
+<h3>3.数组(array)</h3>
+</div>
+<div id="list" class="section level3">
+<h3>4.列表(list)</h3>
+</div>
+<div id="factor" class="section level3">
+<h3>5.因子(factor)</h3>
+<div class="section level4">
+<h4>5.1因子与水平</h4>
 <blockquote>
 <ul>
-<li>1.向量(vector) 向量是由相同基本类型元素组成的序列，相当于一维数组。</li>
-<li>2.矩阵(matrix)</li>
-<li>3.数组(array)</li>
-<li>4.列表(list)</li>
-<li>5.因子(factor)</li>
 <li>6.数据框(data frames) 数据框是一种矩阵形式的数据，但数据框中各列可以是不同类型的数据。数据框每列是一个变量，每行是一个观测。数据框可以看成是矩阵的推广，也可以看做是一种特殊的列表对象。 从数据框UG生成一个包含性别、身高和体重的新的数据框UGI,其变量名为g,x,y。</li>
 </ul>
 </blockquote>
@@ -139,20 +161,21 @@ UG1 = data.frame(g=UG$sex,x=UG$height,y=UG$weight)
 head(UG1)</code></pre>
 <pre><code>## data frame with 0 columns and 0 rows</code></pre>
 </div>
+</div>
+</div>
 <div class="section level2">
-<h2>4.自定义函数</h2>
+<h2>四、编程相关</h2>
+<div class="section level3">
+<h3>1.自定义函数</h3>
 <p>在较复杂的计算问题中，有时候一个任务可能需要重复多次，这时我们不妨使用函数，函数内的变量名是局部的，即当函数运行结束后它们不再保存到当前工作空间。你可以随时随地编写自己的函数，而且可以像使用内置函数一样使用你的函数，<strong>编写函数的句法如下：</strong></p>
 <blockquote>
 <p>函数名 &lt;- function(参数1,参数2,…) { 函数体 函数返回值 }</p>
 </blockquote>
 </div>
-<div class="section level2">
-<h2>5.选取观测值</h2>
-<blockquote>
-<ul>
-<li>1.下标法</li>
-</ul>
-</blockquote>
+<div class="section level3">
+<h3>2.选取观测值</h3>
+<div class="section level4">
+<h4>2.1 下标法</h4>
 <pre class="r"><code>UG &lt;- read.table(&quot;resources/UnderGraduate.csv&quot;,header=TRUE,fileEncoding=&quot;gbk&quot;)
 UG[1,]</code></pre>
 <pre><code>## [1] 201205A01,赵**,女,东部,1992-4-8,16.6,164,66,64.1
@@ -173,11 +196,9 @@ UG[1,]</code></pre>
 ## [2] 201205A06,吴**,男,东部,1995-11-27,14.8,187,89,92.1
 ## [3] 201205A20,周**,男,西部,1996-10-24,2.9,159,61,68.2 
 ## 48 Levels: 201205A01,赵**,女,东部,1992-4-8,16.6,164,66,64.1 ...</code></pre>
-<blockquote>
-<ul>
-<li>2.记号$法</li>
-</ul>
-</blockquote>
+</div>
+<div class="section level4">
+<h4>2.2 记号$法</h4>
 <pre class="r"><code>UG &lt;- read.csv(&quot;resources/UnderGraduate.csv&quot;,header=TRUE,fileEncoding=&quot;gbk&quot;)
 man &lt;- UG[UG$sex=='男',]
 man</code></pre>
@@ -207,11 +228,9 @@ man</code></pre>
 ## 45 201205A45 高**  男   东部  1993-5-11   13.8    175     63  75.3
 ## 46 201205A46 杨**  男   东部 1996-12-29  158.0    182     75  69.3
 ## 47 201205A47 魏**  男   东部  1994-6-14   17.2    191     78  53.1</code></pre>
-<blockquote>
-<ul>
-<li>3.subset法</li>
-</ul>
-</blockquote>
+</div>
+<div id="subset" class="section level4">
+<h4>2.3 subset法</h4>
 <pre class="r"><code>UG &lt;- read.csv(&quot;resources/UnderGraduate.csv&quot;,header=TRUE,fileEncoding=&quot;gbk&quot;)
 man &lt;- subset(UG,sex=='男')
 man</code></pre>
@@ -241,6 +260,8 @@ man</code></pre>
 ## 45 201205A45 高**  男   东部  1993-5-11   13.8    175     63  75.3
 ## 46 201205A46 杨**  男   东部 1996-12-29  158.0    182     75  69.3
 ## 47 201205A47 魏**  男   东部  1994-6-14   17.2    191     78  53.1</code></pre>
+</div>
+</div>
 </div>
 </div>
 
