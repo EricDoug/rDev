@@ -5,7 +5,7 @@
 ###1.read.table
 ```{r}
 UG = read.table("resources/UnderGraduate.csv",header=T,fileEncoding="gbk")
-UG
+head(UG)
 class(UG)
 ```
 
@@ -22,6 +22,19 @@ class(UG)
 ### 5.缺省值(missing value)
 有些统计资料是不完整的。当一个元素或值在统计的时候是"不可得到"(not available)或"缺失值"(missing value)，相关位置可能被保留并且赋予一个特定的NA(Not Available)。
 
+####5.1 缺失值的识别  is.na()
+```{r}
+is.na(UG$income)
+```
+
+####5.2 缺失值排除  na.omit()
+```{r}
+UG <- na.omit(UG)
+head(UG)
+```
+
+
+
 ##三、R语言数据对象
 
 ### 1.向量(vector)
@@ -35,8 +48,90 @@ class(UG)
 
 ### 5.因子(factor)
 
-####5.1因子与水平
->*  6.数据框(data frames)
+####5.1 因子与水平
+
+在R中，因子可以简单地看作一个附加了更多信息的向量。这额外的信息包括向量中不同值的记录，称为"水平"(level)。
+```{r}
+x <- c(5,12,13,12)
+xf <- factor(x)
+xf
+str(xf)
+unclass(xf)
+```
+
+####5.2 因子的常用函数
+
+#####5.2.1 tapply函数
+
+tapppy(x,f,g)  
+
+>*  x-需要处理的数据集
+>*  f-因子或因子列表（即分类）
+>*  g-处理的函数
+
+**注意：f中的每个因子需要与x具有相同的长度。**
+
+***案例一***
+
+假设有一个关于选民年龄的向量age,以及表示这些选民的一些非数值特征，例如党派（affils）。我们希望找到每个党派的平均年龄。
+```{r}
+ages <- c(25,26,55,37,21,42)
+affils <- c("R","D","D","R","U","D")
+tapply(ages,affils,mean)
+```
+
+***案例二***
+
+假设有一个经济数据集，其中包含性别、年龄和收入的变量。以性别和年龄段作为分类统计人收入。
+
+```{r}
+d <- data.frame(list(gender=c("M","M","F","M","F","F"),age=c(47,59,21,32,33,24),income=c(55000,88000,32450,76500,123000,45650)))
+d
+#定义一个新的数据列
+d$over25 <- ifelse(d$age > 25,"25岁以上(包括25岁)","25岁以下")
+tapply(d$income,list(d$gender,d$over25),mean)
+```
+
+#####5.2.2 split()函数
+
+tapply()是将**向量**分割为组，然后针对每个组应用指定的函数，与之不同的是，split()在第一步就停止了，只是形成分组。
+
+split(x,f)
+
+**注意：x在split()中可以是数据框，而在tapply()中不可以**
+
+```{r}
+d
+split(d$income,list(d$gender,d$over25))
+```
+
+#####5.2.3 by()函数
+
+假设在鲍鱼例子中，我们希望对不同的性别编码组(即雄性、雌性和幼虫)分别做直径对长度的回归分析。咋一看，似乎函数tapply()很适合这项任务，但该函数的第一个参数必须是向量，而不是矩阵活数据框。被调用的函数可以是多变量函数，例如range()，但输入必须是向量。然而回归的输入是一个至少两列的矩阵（或数据框）:一列是被预测的变量，另一列或多列是预测变量。
+
+```{r}
+aba <- read.csv("resources/Abalone.data",header = F)
+head(aba)
+vars <- names(aba)
+names(aba) <- c("Gender","Length","Diameter","Height","WholeWt","ShuckedWt","ViscWt","ShellWt","Rings")
+by(aba,aba$Gender,function(m) lm(m[,2]~m[,3]))
+```
+
+#####5.2.4 aggregate()函数
+
+aggregate()函数对分组中的每一个变量调用tapply()函数。例如，在鲍鱼数据中，按性别分组，我们可以找到每个变量的中位数，如下所示：
+
+```{r}
+aggregate(aba[,-1],list(aba$Gender),median)
+```
+
+**第一个参数，aba[,-1],是除了第一列（Gender即性别）之外的整个数据框。第二个参数必须是一个列表，也就是前面提到的性别因子Gender。最后，第三个参数告诉R对按因子分组所生成的数据框计算每一列的中位数。本例有三个分组，因此aggregate()函数的输出结果有三行。**
+
+#####5.2.5 cut()函数
+
+
+
+###6.数据框(data frames)
 数据框是一种矩阵形式的数据，但数据框中各列可以是不同类型的数据。数据框每列是一个变量，每行是一个观测。数据框可以看成是矩阵的推广，也可以看做是一种特殊的列表对象。
 >从数据框UG生成一个包含性别、身高和体重的新的数据框UGI,其变量名为g,x,y。
 
@@ -45,6 +140,7 @@ UG <- read.table("resources/UnderGraduate.csv",header=TRUE,fileEncoding="gbk")
 UG1 = data.frame(g=UG$sex,x=UG$height,y=UG$weight)
 head(UG1)
 ```
+
 
 ##四、编程相关
 

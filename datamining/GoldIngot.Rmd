@@ -4,22 +4,154 @@ author: "刘晓东 韩静"
 date: "2014年11月19日"
 output: word_document
 ---
-#一、基于vip等级的用户每天消耗元宝统计
-##appstore*7月13日*基于VIP等级的元宝消耗统计
+#一、基于vip等级的活跃玩家的元宝消耗统计
+
+##1.数据提取
+
+HQL代码如下：
+
+>* select  a.ds `date`,c.vipl vip_level,count(distinct a.uid) population,sum(c.gem) total_gem_used
+from
+(select distinct ds,uid,server,channel
+from **model_activeuids** 
+where game = 'dazhangmen' and ds between '2014-07-01' and '2014-10-31' and channel='appstore' 
+)a
+join
+(select distinct ds,uid,server,channel
+from **game_user_info** where ds between '2014-07-01' and '2014-10-31' and channel = 'appstore'and uid is not null and (is_test is null or is_test != 1) 
+and (is_dev is null or is_dev != 1 )) b
+on a.ds=b.ds and a.uid=b.uid and a.server=b.server and a.channel = b.channel
+ join 
+ (select distinct ds,uid,server,vip_level vipl,total_gem_used gem,channel
+ from **dazhangmen_main_info** 
+ where ds between '2014-07-01' and '2014-10-31' and channel = 'appstore' and vip_level is not null ) c
+ on a.ds=c.ds and a.uid=c.uid and a.server=c.server and a.channel = c.channel
+ group by a.ds,c.vipl
+ 
+ [源数据](resources/appstore_vip_goldingot.csv)
+
+###appstore活跃玩家*7月1日*至*10月31日*元宝消耗统计
+
 ```{r echo=FALSE}
 library(ggplot2)
-appstoreVip <- read.csv("resources/appstore_vip_11_11.csv",header=T)
-p <- ggplot(data=appstoreVip,aes(x=vip_level,y=as.numeric(total_gem_used)))
-p + geom_histogram(binwidth=4)
-```
-
-
-##appstore活跃用户*7月1日*至*10月31日*元宝消耗统计
-
-```{r echo=FALSE}
-library(ggplot2)
+#读入数据
 appstoreGoldIngot <- read.csv("resources/appstore_vip_goldingot.csv",header=T)
-qplot(as.Date(date),total_gem_used,data=appstoreGoldIngot,colour=factor(vip_level))
+#该函数用于提取指定日期的数据集
+classifyByDate <- function(sourceData,dateWanted) {
+  dataWanted <- subset(sourceData,as.Date(date) == dateWanted)
+  return(dataWanted)
+}
+#该函数用于提取人均数据
+averageAnalysis <- function(sourceData) {
+  sourceData$averageConsume <- sourceData$total_gem_used / sourceData$population
+  return(sourceData)
+}
+
+exceptVip13 <- function(sourceData){
+  exceptdata <- subset(sourceData,as.numeric(vip_level) < 13)
+  return(exceptdata)
+}
+#指定vip等级的数据
+thePointVip <- function(sourceData,vipLevel){
+  vipLevelData <- subset(sourceData,as.numeric(vip_level) == vipLevel)
+  return(vipLevelData)
+}
+
+qplot(as.Date(date),total_gem_used,data=appstoreGoldIngot,colour=factor(vip_level),xlab="date",ylab="total consume")
+
 ```
 
-###结论：
+####结论：
+
+###appstore活跃玩家*7月1日至10月31日*元宝人均消耗统计
+```{r echo=FALSE}
+addAverageData <- averageAnalysis(appstoreGoldIngot)
+qplot(as.Date(date),averageConsume,data=addAverageData,colour=factor(vip_level),xlab="date",ylab="average consume of population")
+```
+
+####结论：人均的消耗基本保持平稳（除了vip13）.
+
+###appstore活跃玩家（除vip13）*7月1日至10月31日*元宝人均消耗统计
+
+```{r echo=FALSE}
+#剔除vip13玩家数据
+exceptVip13Data <- exceptVip13(addAverageData)
+qplot(as.Date(date),averageConsume,data=exceptVip13Data,colour=factor(vip_level),xlab="date",ylab="average consume of population")
+```
+
+
+###appstore活跃vip13玩家*7月1日至10月31日*元宝人均消耗统计
+
+```{r echo=FALSE}
+vip13Data <- thePointVip(addAverageData,13)
+qplot(as.Date(date),averageConsume,data=vip13Data,colour=factor(vip_level),xlab="date",ylab="average consume of population")
+```
+
+
+###appstore活跃vip12玩家*7月1日至10月31日*元宝人均消耗统计
+
+```{r echo=FALSE}
+vip13Data <- thePointVip(addAverageData,12)
+qplot(as.Date(date),averageConsume,data=vip13Data,colour=factor(vip_level),xlab="date",ylab="average consume of population")
+```
+
+
+###appstore活跃vip11玩家*7月1日至10月31日*元宝人均消耗统计
+
+```{r echo=FALSE}
+vip13Data <- thePointVip(addAverageData,11)
+qplot(as.Date(date),averageConsume,data=vip13Data,colour=factor(vip_level),xlab="date",ylab="average consume of population")
+```
+
+###appstore活跃vip10玩家*7月1日至10月31日*元宝人均消耗统计
+
+```{r echo=FALSE}
+vip13Data <- thePointVip(addAverageData,10)
+qplot(as.Date(date),averageConsume,data=vip13Data,colour=factor(vip_level),xlab="date",ylab="average consume of population")
+```
+
+###appstore活跃vip9玩家*7月1日至10月31日*元宝人均消耗统计
+
+```{r echo=FALSE}
+vip13Data <- thePointVip(addAverageData,9)
+qplot(as.Date(date),averageConsume,data=vip13Data,colour=factor(vip_level),xlab="date",ylab="average consume of population")
+```
+
+###appstore活跃vip8玩家*7月1日至10月31日*元宝人均消耗统计
+
+```{r echo=FALSE}
+vip13Data <- thePointVip(addAverageData,8)
+qplot(as.Date(date),averageConsume,data=vip13Data,colour=factor(vip_level),xlab="date",ylab="average consume of population")
+```
+
+
+###appstore活跃vip3玩家*7月1日至10月31日*元宝人均消耗统计
+
+```{r echo=FALSE}
+vip13Data <- thePointVip(addAverageData,3)
+qplot(as.Date(date),averageConsume,data=vip13Data,colour=factor(vip_level),xlab="date",ylab="average consume of population")
+```
+
+
+###appstore活跃vip2玩家*7月1日至10月31日*元宝人均消耗统计
+
+```{r echo=FALSE}
+vip13Data <- thePointVip(addAverageData,2)
+qplot(as.Date(date),averageConsume,data=vip13Data,colour=factor(vip_level),xlab="date",ylab="average consume of population")
+```
+
+###appstore活跃vip1玩家*7月1日至10月31日*元宝人均消耗统计
+
+```{r echo=FALSE}
+vip13Data <- thePointVip(addAverageData,1)
+qplot(as.Date(date),averageConsume,data=vip13Data,colour=factor(vip_level),xlab="date",ylab="average consume of population")
+```
+
+###appstore活跃vip0玩家*7月1日至10月31日*元宝人均消耗统计
+
+```{r echo=FALSE}
+vip13Data <- thePointVip(addAverageData,0)
+qplot(as.Date(date),averageConsume,data=vip13Data,colour=factor(vip_level),xlab="date",ylab="average consume of population")
+```
+
+####结论：分析vip0\~3,8\~13的元宝消耗状况，vip0\~3较vip8\~13的元宝消耗的波动大。

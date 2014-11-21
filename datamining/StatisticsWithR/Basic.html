@@ -59,56 +59,14 @@ if (window.hljs && document.readyState && document.readyState === "complete") {
 <div id="read.table" class="section level3">
 <h3>1.read.table</h3>
 <pre class="r"><code>UG = read.table(&quot;resources/UnderGraduate.csv&quot;,header=T,fileEncoding=&quot;gbk&quot;)
-UG</code></pre>
-<pre><code>##    id.name.sex.region.birth.income.height.weight.score
-## 1     201205A01,赵**,女,东部,1992-4-8,16.6,164,66,64.1
-## 2    201205A02,高**,男,西部,1993-5-12,20.6,162,65,71.2
-## 3     201205A03,朱**,男,中部,1995-7-18,4.1,186,87,90.2
-## 4     201205A04,许**,女,中部,1995-1-8,78.8,165,67,74.9
-## 5      201205A05,陈**,男,西部,1992-3-7,3.8,165,69,75.6
-## 6   201205A06,吴**,男,东部,1995-11-27,14.8,187,89,92.1
-## 7   201205A07,杨**,女,中部,1997-12-29,30.8,172,69,79.7
-## 8    201205A08,宋**,男,西部,1995-8-20,35.5,151,57,58.4
-## 9    201205A09,宋**,女,中部,1995-8-19,33.3,157,62,65.6
-## 10    201205A10,李**,男,中部,1991-1-2,15.4,166,71,65.5
-## 11      201205A11,赵**,男,中部,1992-3-7,73,174,67,89.1
-## 12    201205A12,张**,女,中部,1992-3-6,28.3,173,70,75.4
-## 13    201205A13,孙**,男,西部,1995-9-21,5.5,168,73,78.9
-## 14    201205A14,高**,女,中部,1993-5-12,2.9,165,64,75.4
-## 15  201205A15,周**,女,东部,1996-10-24,58.3,164,74,64.2
-## 16     201205A16,唐**,男,西部,1994-6-15,16.3,171,70,96
-## 17   201205A17,孙**,男,东部,1996-9-22,24.8,175,77,77.1
-## 18   201205A18,杨**,女,东部,1997-12-30,4.1,155,55,46.8
-## 19   201205A19,高**,男,东部,1993-5-12,46.4,177,77,79.6
-## 20   201205A20,周**,男,西部,1996-10-24,2.9,159,61,68.2
-## 21   201205A21,杨**,男,西部,1995-9-10,42.1,153,54,50.9
-## 22      201205A22,赵**,男,西部,1992-3-7,37,162,62,71.3
-## 23   201205A23,宋**,女,中部,1995-8-20,21.4,154,53,61.4
-## 24       201205A24,王**,男,西部,1991-3-4,1.1,157,59,65
-## 25    201205A25,刘**,女,中部,1992-4-9,34.7,158,57,66.3
-## 26   201205A26,高**,男,西部,1993-5-12,16.1,147,45,53.3
-## 27    201205A27,李**,女,中部,1991-1-1,17.5,162,61,84.3
-## 28    201205A28,高**,女,中部,1993-5-12,3.3,166,70,75.9
-## 29    201205A29,吴**,女,东部,1997-11-27,18.2,159,61,57
-## 30     201205A30,高**,女,东部,1993-5-11,34,176,85,86.4
-## 31    201205A31,唐**,男,西部,1994-6-15,3.7,178,74,79.2
-## 32   201205A32,朱**,男,西部,1995-8-18,15.3,161,62,70.4
-## 33     201205A33,唐**,男,西部,1994-6-15,25.3,173,75,85
-## 34    201205A34,张**,女,西部,1992-3-6,16.2,163,71,84.8
-## 35   201205A35,丁**,女,东部,1996-10-25,4.9,168,81,81.1
-## 36   201205A36,孙**,男,中部,1995-9-21,13.9,177,77,79.5
-## 37  201205A37,周**,女,西部,1996-10-24,11.2,170,68,80.8
-## 38   201205A38,王**,女,东部,1995-12-4,24.1,169,69,70.2
-## 39   201205A39,孙**,女,东部,1996-9-22,57.9,167,71,46.7
-## 40   201205A40,魏**,女,东部,1993-5-13,44.3,166,67,66.3
-## 41  201205A41,丁**,女,东部,1996-10-25,22.4,163,65,62.5
-## 42   201205A42,宋**,男,中部,1995-8-20,16.1,178,72,68.4
-## 43 201205A43,吴**,男,中部,1995-11-27,105.9,190,91,56.2
-## 44   201205A44,高**,女,西部,1993-5-11,31.4,185,84,86.4
-## 45   201205A45,高**,男,东部,1993-5-11,13.8,175,63,75.3
-## 46   201205A46,杨**,男,东部,1996-12-29,158,182,75,69.3
-## 47   201205A47,魏**,男,东部,1994-6-14,17.2,191,78,53.1
-## 48   201205A48,孙**,女,西部,1995-9-22,14.2,168,70,78.7</code></pre>
+head(UG)</code></pre>
+<pre><code>##   id.name.sex.region.birth.income.height.weight.score
+## 1    201205A01,赵**,女,东部,1992-4-8,16.6,164,66,64.1
+## 2   201205A02,高**,男,西部,1993-5-12,20.6,162,65,71.2
+## 3    201205A03,朱**,男,中部,1995-7-18,4.1,186,87,90.2
+## 4    201205A04,许**,女,中部,1995-1-8,78.8,165,67,74.9
+## 5     201205A05,陈**,男,西部,1992-3-7,3.8,165,69,75.6
+## 6  201205A06,吴**,男,东部,1995-11-27,14.8,187,89,92.1</code></pre>
 <pre class="r"><code>class(UG)</code></pre>
 <pre><code>## [1] &quot;data.frame&quot;</code></pre>
 </div>
@@ -130,6 +88,24 @@ UG</code></pre>
 <div id="missing-value" class="section level3">
 <h3>5.缺省值(missing value)</h3>
 <p>有些统计资料是不完整的。当一个元素或值在统计的时候是“不可得到”(not available)或“缺失值”(missing value)，相关位置可能被保留并且赋予一个特定的NA(Not Available)。</p>
+<div id="-is.na" class="section level4">
+<h4>5.1 缺失值的识别 is.na()</h4>
+<pre class="r"><code>is.na(UG$income)</code></pre>
+<pre><code>## Warning in is.na(UG$income): is.na()不适用于类别为'NULL'的非串列或非矢量</code></pre>
+<pre><code>## logical(0)</code></pre>
+</div>
+<div id="-na.omit" class="section level4">
+<h4>5.2 缺失值排除 na.omit()</h4>
+<pre class="r"><code>UG &lt;- na.omit(UG)
+head(UG)</code></pre>
+<pre><code>##   id.name.sex.region.birth.income.height.weight.score
+## 1    201205A01,赵**,女,东部,1992-4-8,16.6,164,66,64.1
+## 2   201205A02,高**,男,西部,1993-5-12,20.6,162,65,71.2
+## 3    201205A03,朱**,男,中部,1995-7-18,4.1,186,87,90.2
+## 4    201205A04,许**,女,中部,1995-1-8,78.8,165,67,74.9
+## 5     201205A05,陈**,男,西部,1992-3-7,3.8,165,69,75.6
+## 6  201205A06,吴**,男,东部,1995-11-27,14.8,187,89,92.1</code></pre>
+</div>
 </div>
 </div>
 <div id="r" class="section level2">
@@ -150,17 +126,150 @@ UG</code></pre>
 <div id="factor" class="section level3">
 <h3>5.因子(factor)</h3>
 <div class="section level4">
-<h4>5.1因子与水平</h4>
+<h4>5.1 因子与水平</h4>
+<p>在R中，因子可以简单地看作一个附加了更多信息的向量。这额外的信息包括向量中不同值的记录，称为“水平”(level)。</p>
+<pre class="r"><code>x &lt;- c(5,12,13,12)
+xf &lt;- factor(x)
+xf</code></pre>
+<pre><code>## [1] 5  12 13 12
+## Levels: 5 12 13</code></pre>
+<pre class="r"><code>str(xf)</code></pre>
+<pre><code>##  Factor w/ 3 levels &quot;5&quot;,&quot;12&quot;,&quot;13&quot;: 1 2 3 2</code></pre>
+<pre class="r"><code>unclass(xf)</code></pre>
+<pre><code>## [1] 1 2 3 2
+## attr(,&quot;levels&quot;)
+## [1] &quot;5&quot;  &quot;12&quot; &quot;13&quot;</code></pre>
+</div>
+<div class="section level4">
+<h4>5.2 因子的常用函数</h4>
+<div id="tapply" class="section level5">
+<h5>5.2.1 tapply函数</h5>
+<p>tapppy(x,f,g)</p>
 <blockquote>
 <ul>
-<li>6.数据框(data frames) 数据框是一种矩阵形式的数据，但数据框中各列可以是不同类型的数据。数据框每列是一个变量，每行是一个观测。数据框可以看成是矩阵的推广，也可以看做是一种特殊的列表对象。 从数据框UG生成一个包含性别、身高和体重的新的数据框UGI,其变量名为g,x,y。</li>
+<li>x-需要处理的数据集</li>
+<li>f-因子或因子列表（即分类）</li>
+<li>g-处理的函数</li>
 </ul>
 </blockquote>
+<p><strong>注意：f中的每个因子需要与x具有相同的长度。</strong></p>
+<p><strong><em>案例一</em></strong></p>
+<p>假设有一个关于选民年龄的向量age,以及表示这些选民的一些非数值特征，例如党派（affils）。我们希望找到每个党派的平均年龄。</p>
+<pre class="r"><code>ages &lt;- c(25,26,55,37,21,42)
+affils &lt;- c(&quot;R&quot;,&quot;D&quot;,&quot;D&quot;,&quot;R&quot;,&quot;U&quot;,&quot;D&quot;)
+tapply(ages,affils,mean)</code></pre>
+<pre><code>##  D  R  U 
+## 41 31 21</code></pre>
+<p><strong><em>案例二</em></strong></p>
+<p>假设有一个经济数据集，其中包含性别、年龄和收入的变量。以性别和年龄段作为分类统计人收入。</p>
+<pre class="r"><code>d &lt;- data.frame(list(gender=c(&quot;M&quot;,&quot;M&quot;,&quot;F&quot;,&quot;M&quot;,&quot;F&quot;,&quot;F&quot;),age=c(47,59,21,32,33,24),income=c(55000,88000,32450,76500,123000,45650)))
+d</code></pre>
+<pre><code>##   gender age income
+## 1      M  47  55000
+## 2      M  59  88000
+## 3      F  21  32450
+## 4      M  32  76500
+## 5      F  33 123000
+## 6      F  24  45650</code></pre>
+<pre class="r"><code>#定义一个新的数据列
+d$over25 &lt;- ifelse(d$age &gt; 25,&quot;25岁以上(包括25岁)&quot;,&quot;25岁以下&quot;)
+tapply(d$income,list(d$gender,d$over25),mean)</code></pre>
+<pre><code>##   25岁以上(包括25岁) 25岁以下
+## F          123000.00    39050
+## M           73166.67       NA</code></pre>
+</div>
+<div id="split" class="section level5">
+<h5>5.2.2 split()函数</h5>
+<p>tapply()是将<strong>向量</strong>分割为组，然后针对每个组应用指定的函数，与之不同的是，split()在第一步就停止了，只是形成分组。</p>
+<p>split(x,f)</p>
+<p><strong>注意：x在split()中可以是数据框，而在tapply()中不可以</strong></p>
+<pre class="r"><code>d</code></pre>
+<pre><code>##   gender age income             over25
+## 1      M  47  55000 25岁以上(包括25岁)
+## 2      M  59  88000 25岁以上(包括25岁)
+## 3      F  21  32450           25岁以下
+## 4      M  32  76500 25岁以上(包括25岁)
+## 5      F  33 123000 25岁以上(包括25岁)
+## 6      F  24  45650           25岁以下</code></pre>
+<pre class="r"><code>split(d$income,list(d$gender,d$over25))</code></pre>
+<pre><code>## $`F.25岁以上(包括25岁)`
+## [1] 123000
+## 
+## $`M.25岁以上(包括25岁)`
+## [1] 55000 88000 76500
+## 
+## $F.25岁以下
+## [1] 32450 45650
+## 
+## $M.25岁以下
+## numeric(0)</code></pre>
+</div>
+<div id="by" class="section level5">
+<h5>5.2.3 by()函数</h5>
+<p>假设在鲍鱼例子中，我们希望对不同的性别编码组(即雄性、雌性和幼虫)分别做直径对长度的回归分析。咋一看，似乎函数tapply()很适合这项任务，但该函数的第一个参数必须是向量，而不是矩阵活数据框。被调用的函数可以是多变量函数，例如range()，但输入必须是向量。然而回归的输入是一个至少两列的矩阵（或数据框）:一列是被预测的变量，另一列或多列是预测变量。</p>
+<pre class="r"><code>aba &lt;- read.csv(&quot;resources/Abalone.data&quot;,header = F)
+head(aba)</code></pre>
+<pre><code>##   V1    V2    V3    V4     V5     V6     V7    V8 V9
+## 1  M 0.455 0.365 0.095 0.5140 0.2245 0.1010 0.150 15
+## 2  M 0.350 0.265 0.090 0.2255 0.0995 0.0485 0.070  7
+## 3  F 0.530 0.420 0.135 0.6770 0.2565 0.1415 0.210  9
+## 4  M 0.440 0.365 0.125 0.5160 0.2155 0.1140 0.155 10
+## 5  I 0.330 0.255 0.080 0.2050 0.0895 0.0395 0.055  7
+## 6  I 0.425 0.300 0.095 0.3515 0.1410 0.0775 0.120  8</code></pre>
+<pre class="r"><code>vars &lt;- names(aba)
+names(aba) &lt;- c(&quot;Gender&quot;,&quot;Length&quot;,&quot;Diameter&quot;,&quot;Height&quot;,&quot;WholeWt&quot;,&quot;ShuckedWt&quot;,&quot;ViscWt&quot;,&quot;ShellWt&quot;,&quot;Rings&quot;)
+by(aba,aba$Gender,function(m) lm(m[,2]~m[,3]))</code></pre>
+<pre><code>## aba$Gender: F
+## 
+## Call:
+## lm(formula = m[, 2] ~ m[, 3])
+## 
+## Coefficients:
+## (Intercept)       m[, 3]  
+##     0.04288      1.17918  
+## 
+## -------------------------------------------------------- 
+## aba$Gender: I
+## 
+## Call:
+## lm(formula = m[, 2] ~ m[, 3])
+## 
+## Coefficients:
+## (Intercept)       m[, 3]  
+##     0.02997      1.21833  
+## 
+## -------------------------------------------------------- 
+## aba$Gender: M
+## 
+## Call:
+## lm(formula = m[, 2] ~ m[, 3])
+## 
+## Coefficients:
+## (Intercept)       m[, 3]  
+##     0.03653      1.19480</code></pre>
+</div>
+<div id="aggregate" class="section level5">
+<h5>5.2.4 aggregate()函数</h5>
+<p>aggregate()函数对分组中的每一个变量调用tapply()函数。例如，在鲍鱼数据中，按性别分组，我们可以找到每个变量的中位数，如下所示：</p>
+<pre class="r"><code>aggregate(aba[,-1],list(aba$Gender),median)</code></pre>
+<pre><code>##   Group.1 Length Diameter Height WholeWt ShuckedWt ViscWt ShellWt Rings
+## 1       F  0.590    0.465  0.160 1.03850   0.44050 0.2240   0.295    10
+## 2       I  0.435    0.335  0.110 0.38400   0.16975 0.0805   0.113     8
+## 3       M  0.580    0.455  0.155 0.97575   0.42175 0.2100   0.276    10</code></pre>
+<p><strong>第一个参数，aba[,-1],是除了第一列（Gender即性别）之外的整个数据框。第二个参数必须是一个列表，也就是前面提到的性别因子Gender。最后，第三个参数告诉R对按因子分组所生成的数据框计算每一列的中位数。本例有三个分组，因此aggregate()函数的输出结果有三行。</strong></p>
+</div>
+<div id="cut" class="section level5">
+<h5>5.2.5 cut()函数</h5>
+</div>
+</div>
+</div>
+<div id="data-frames" class="section level3">
+<h3>6.数据框(data frames)</h3>
+<p>数据框是一种矩阵形式的数据，但数据框中各列可以是不同类型的数据。数据框每列是一个变量，每行是一个观测。数据框可以看成是矩阵的推广，也可以看做是一种特殊的列表对象。 &gt;从数据框UG生成一个包含性别、身高和体重的新的数据框UGI,其变量名为g,x,y。</p>
 <pre class="r"><code>UG &lt;- read.table(&quot;resources/UnderGraduate.csv&quot;,header=TRUE,fileEncoding=&quot;gbk&quot;)
 UG1 = data.frame(g=UG$sex,x=UG$height,y=UG$weight)
 head(UG1)</code></pre>
 <pre><code>## data frame with 0 columns and 0 rows</code></pre>
-</div>
 </div>
 </div>
 <div class="section level2">
