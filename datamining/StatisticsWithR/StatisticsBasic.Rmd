@@ -57,16 +57,26 @@ R中的绘图命令可以分为"高水平"、"低水平"和"交互式"三中绘�
 
 下面以学生身高及其分组数据来对这些函数做些简单介绍。
 
+#####(1) 多图设置：mfrow
 ```{r }
 #源数据读取
 UG = read.csv("resources/UnderGraduate.csv",header=T,fileEncoding="gbk")
 head(UG)
 X <- UG$height
-X
 plot(X)  #plot(X,type='p')
-#plot(X,type='l',xlim=c(0,300),ylim=c(0,300))
-
+oldpar <- par(mfcol=c(2,2))
+plot(X,type='l')
+plot(X,type='b')
+plot(X,type='o')
+plot(X,type='h')
+par(oldpar)
 ```
 
+#####(2) 图形修饰：xlab,ylab,ylim,main。
+
+```{r}
+plot(X)
+plot(X,xlab='sequence',ylab='hight',ylim=c(140,200),main='The scatter of students height')
+```
 
 

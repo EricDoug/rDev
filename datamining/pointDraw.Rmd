@@ -1,17 +1,24 @@
-#散点图绘制
-##传统 plot()
+#一、散点图绘制
+##1.传统 plot()
 ```{r}
+head(mtcars)
 plot(mtcars$wt,mtcars$mpg)
 ```
 
-##快速绘制 qplot()
+>* mpg:耗油量（英里每加仑）
+cty mpg：城市公路驾驶时的耗油量
+hwy mpg: 高速公路驾驶时耗油量
+disp:发动机排量
+cyl:汽缸数目(cylinders)
+
+##2.快速绘制 qplot()
 
 ```{r}
 library(ggplot2)
-qplot(mtcars$wt,mtcars$mpg)
+qplot(wt,mpg,data=mtcars)
 ```
 
-##ggplot()
+##3.ggplot()
 
 如果绘图所用的两个参数向量包含在同一个数据框内。
 ```{r}
@@ -20,25 +27,26 @@ p <- ggplot(mtcars,aes(x=wt,y=mpg))
 p + geom_point()
 ```
 
-###绘制基本散点图
+###二、绘制基本散点图
 
-运行geom_point()函数，分别映射一个变量到x和y
+####1.运行geom_point()函数，分别映射一个变量到x和y
 ```{r}
 library(gcookbook)  #为了使用数据
-heightweight[,c("ageYear","heightIn")]
+head(heightweight)
+head(heightweight[,c("ageYear","heightIn")])
 p <- ggplot(heightweight,aes(x=ageYear,y=heightIn))
 p + geom_point()
 ```
 
 > 还可以使用geom_point(size=1.5,shape=21),定义散点的大小和形状
 
-###使用点形和颜色属性，并基于某变量对数据进行分组
+####2.使用点形和颜色属性，并基于某变量对数据进行分组
 
 >通过将变量sex映射给colour或shape，我们可以按变量sex对数据进行分组。
 
 ```{r}
 library(gcookbook)
-heightweight[,c("sex","ageYear","heightIn")]
+head(heightweight[,c("sex","ageYear","heightIn")])
 ggplot(heightweight,aes(x=ageYear,y=heightIn,colour=sex)) + geom_point()
 ggplot(heightweight,aes(x=ageYear,y=heightIn,shape=sex)) + geom_point()
 ```
@@ -58,7 +66,7 @@ p <- ggplot(heightweight,aes(x=ageYear,y=heightIn,shape=sex,colour=sex))
 p+ geom_point() + scale_shape_manual(values=c(1,2)) + scale_colour_brewer(palette="Set1")
 ```
 
-###使用不同与默认设置的点形
+####3.使用不同与默认设置的点形
 
 通过指定geom_point()函数的点形(shape)参数可以设定散点图中所有数据点的点形。
 >* 点形1-20的点的颜色，包括实心区域的颜色都可由color参数来控制。对于点形21-25而言，边框线和实心区域的颜色则分别由colour和fill参数来控制。可以用点形和填充色（空心或实心）属性分别表示两个不同的变量。

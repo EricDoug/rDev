@@ -1,0 +1,25 @@
+---
+title: "chapter01"
+author: "EricDoug"
+date: "2014年11月24日"
+output: html_document
+---
+#第一章  引论
+
+本章将从广泛的应用领域，介绍一些时间序列的实例。时间序列及其模型的一个独特的性质是，通常我们不能假定观测值独立取自同一总体（例如，取均值不能的总体），时间序列分析的要点是研究具有相关性质的模型。
+
+## 1.1 时间序列举例
+
+**洛杉矶年降水量**
+
+```{r}
+library(ggplot2)
+library(TSA)
+dataLarain <- read.table("resources/Datasets/larain.dat",header = TRUE)
+#head(larain)
+#win.graph(width=4.875,height=2.5,pointsize=8)
+#data(larain)
+#plot(larain,ylab = "Inches",xlab = 'Year',type = 'o')
+qplot(larain,data=dataLarain)
+```
+
