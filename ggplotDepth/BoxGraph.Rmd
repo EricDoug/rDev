@@ -1,0 +1,47 @@
+# 箱图
+
+##一、基础绘图
+
+###1.plot()
+
+```{r}
+head(ToothGrowth)
+plot(ToothGrowth$supp,ToothGrowth$len)
+```
+
+```{r}
+boxplot(len ~ supp,data = ToothGrowth)
+```
+
+> put interaction of two variables on x-axis
+
+```{r}
+#"~"前面是因变量，后面是自变量,在boxplot中,"~"后面表示分租的意思，len按照supp分组
+boxplot(len ~ supp + dose,data= ToothGrowth)
+
+boxplot(mtcars$mpg,main="Box plot",ylab="Miles per Gallon")
+boxplot.stats(mtcars$mpg)
+```
+
+###2.qplot()
+
+```{r}
+library(ggplot2)
+qplot(ToothGrowth$supp,ToothGrowth$len,geom="boxplot")
+qplot(supp,len,data=ToothGrowth,geom="boxplot")
+```
+
+>using three separate vectors
+```{r}
+qplot(interaction(ToothGrowth$supp,ToothGrowth$dose),ToothGrowth$len,geom="boxplot")
+qplot(interaction(supp,dose),len,data=ToothGrowth,geom="boxplot")
+```
+
+
+###3.ggplot()
+
+```{r}
+p <- ggplot(ToothGrowth,aes(x=interaction(supp,dose),y=len))
+p + geom_boxplot()
+```
+

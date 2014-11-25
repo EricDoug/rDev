@@ -1,0 +1,40 @@
+# 柱状图
+
+##一、基本绘图函数
+
+###1.barplot()
+
+```{r}
+barplot(BOD$demand,names.arg=BOD$Time)
+
+table(mtcars$cyl)
+
+barplot(table(mtcars$cyl))
+```
+
+###2.qplot()
+
+```{r}
+library(ggplot2)
+head(BOD)
+qplot(BOD$Time,BOD$demand,geom="bar",stat="identity")
+qplot(factor(BOD$Time),BOD$demand,geom="bar",stat="identity")
+
+qplot(mtcars$cyl)
+
+qplot(factor(mtcars$cyl))
+
+qplot(Time,demand,data=BOD,geom="bar",stat="identity")
+```
+
+
+###3.ggplot()
+
+```{r}
+p <- ggplot(mtcars,aes(x=factor(cyl)))
+p + geom_bar()
+
+p1 <- ggplot(BOD,aes(x=factor(Time),y=demand))
+p1 + geom_bar(stat="identity")
+```
+
