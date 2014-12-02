@@ -15,11 +15,47 @@ output: html_document
 ```{r}
 library(ggplot2)
 library(TSA)
-dataLarain <- read.table("resources/Datasets/larain.dat",header = TRUE)
-#head(larain)
-#win.graph(width=4.875,height=2.5,pointsize=8)
-#data(larain)
-#plot(larain,ylab = "Inches",xlab = 'Year',type = 'o')
-qplot(larain,data=dataLarain)
+#加载指定的数据集
+data(larain)
+plot(larain,ylab = "Inches",xlab = 'Year',type = 'o',main="Exhibit 1-1 Time Series Plot of Los Angeles Annual Rainfall")
+
+```
+
+ > 图表1-1是加利福尼亚州洛杉矶地区100多年来的年降水量时间序列图。从图中可以看出，降水量在这些年有显著的差异————有点年份降水量高，其他年份介于两者之间。多洛杉矶来说，1883年无疑是湿度特别大的一年，而1983年则相当干燥。为了分析和建模需要，我们关心的是相邻年份的降水量是否存在某种关联。若是，则可能依据当年的降水量数据预测来年的降水量。我们可以画出相邻年份的降水量的散点图。
+ 
+```{r}
+plot(y=larain,x=zlag(larain),ylab='Inches',xlab='Previous Year Inches',main="Exhibit 1-2 Scatterplot of LA Rainfall versus Last Year's LA Rainfall")
+```
+
+>  图表1-2是由此绘出的降水量散点图。例如，右下角的点显示降水量非常大的1883年40英寸的降水量，其后1884年降水量中等（约12英寸）,图中靠近顶部的点表明40英寸降水量的年份，其上一年降水量比较典型，大约15英寸。
+
+该图给人的主要印象是当年降水量与去年降水量几乎没有什么联系，既无"趋势"，也没有一般倾向。上一年与当年降水量的相关性非常小，从预测和建模的角度，这样的时间序列没有研究意义。
+
+
+**化工过程**
+
+```{r}
+data(color)
+plot(color,ylab='Color Property',xlab='Batch',type='o',main='Exhibit 1.3 Time Series Plot of Color Property from a Chemical Process')
+```
+
+图表1-3 是颜色值的时间序列图。表示连续批次颜色的属性。
+
+```{r}
+plot(y=color,x=zlag(color),ylab='Color Property',xlab='Previous Batch Color Property',main='Exhibit 1.4 Scatterplot of Color Value versus Previous Color Value')
+```
+
+图表1-4是相邻颜色值的散点图。该图显示了一个稍微向上的趋势————数值较小后面的批次趋于较小的值，中等值后面的批次趋于中等值，数值较大后面的批次趋于较大的值。该趋势明显但并不非常强烈，例如，散点图的相关系数约为0.6。
+
+**滤油器月销售量**
+
+```{r}
+data(oilfilters)
+plot(oilfilters,type='o',ylab='Sales')
+```
+
+```{r}
+plot(oilfilters,type='l',ylab='Sales')
+points(y=oilfilters,x=time(oilfilters),pch=as.vector(season(oilfilters)))
 ```
 

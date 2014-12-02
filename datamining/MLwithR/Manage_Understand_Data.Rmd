@@ -1,0 +1,105 @@
+
+#第二章  数据的分析与预处理
+
+##一、R的数据集
+
+###1.向量
+
+The fundamental R data structure is the vector, which stores an ordered set of values called elements. A vector can contain *any number of elements*. However, all the elements must be of the same type; for instance, a vector cannot contain both numbers and text.
+
+There are several vector types commonly used in machine learning: integer(numbers without decimals), numeric (numbers with decimals), character (text data), or logical (TRUE or FALSE values).There are also two special values: NULL, which is used to indicate the absence of any value, and NA, which indicates a missing value.
+
+For example,let's construct a set of vectors containing data on three medical patients.
+```{r}
+subject_name <- c("John Doe","Jane Doe","Steve Graves")
+temperature <- c(98.1,98.6,101.4)
+flu_status <- c(FALSE,FALSE,TRUE)
+
+```
+
+Because R vectors are inherently ordered, the records can be accessed by counting the item's number in the set, beginning at 1, and surrounding this number with square brackets (for example, [ and ]) after the name of the vector. For instance, to obtain the body temperature for patient Jane Doe, or element 2 in the temperature vector simply type:
+
+```{r}
+temperature[2]
+```
+
+R offers a variety of convenient methods for extracting data from vectors. A range of values can be obtained using the colon operator. For instance, to obtain the body temperature of Jane Doe and Steve Graves, type:
+
+```{r}
+temperature[2:3]
+```
+
+Items can be excluded by specifying a negative item number. To exclude Jane Doe's temperature data, type:
+
+```{r}
+temperature[-2]
+```
+
+###2.Factors
+
+To create a factor from a character vector, simply apply the factor() function. For example:
+
+```{r}
+gender <- factor(c("MALE","FEMALE","MALE"))
+gender
+```
+
+Notice that when the gender data was displayed, R printed additional information indicating the levels of the gender factor. The levels comprise the set of possible categories the data could take, in this case MALE or FEMALE.
+
+When factors are created, we can add additional levels that may not appear in the data. Suppose we added another factor for blood type as shown in the following example :
+
+```{r}
+blood <- factor(c("O","AB","A"),levels = c("A","B","AB","O"))
+blood
+```
+
+###3.Lists
+
+Another special type of vector, a list, is used for storing an ordered set of values. However, unlike a vector that requires all elements to be the same type, a list allows different types of values to be collected.
+
+```{r}
+subject1 <- list(fullname = subject_name[1],temperature = temperature[1],flu_status = flu_status[1],gender = gender[1],blood = blood[1])
+subject1
+```
+
+###4.Data frames
+
+In R terms, a data frame can be understood as a list of vectors or factors, each having exactly the same number of values. Because the data frame is literally a list of vectors, it combines aspects of both vectors and lists.
+
+Let's create a data frame for our patient dataset. Using the patient data vectors we created previously, the data.frame() function combines them into a data frame:
+
+```{r}
+pt_data <- data.frame(subject_name,temperature,flu_status,gender,blood,stringAsFactors = FALSE)
+pt_data$subject_name
+pt_data[c("temperature","flu_status")]
+pt_data[1,2]
+```
+
+If you would like more than one row or column of data, this can be done by specifying vectors for the row and column numbers you would like. The following statement will pull data from rows 1 and 3, and columns 2 and 4:
+```{r}
+pt_data[c(1,3),c(2,4)]
+pt_data[,1]
+pt_data[1,]
+pt_data
+pt_data[c(1,3),c("temperature","gender")]
+```
+
+###5.Matrixes and arrays
+
+```{r}
+m <- matrix(c('a','b','c','d'),nrow=2)
+m
+```
+
+
+##三、Exploring and understanding data
+
+The str() function provides a method for displaying the structure of a data frame, or any R data structure including vectors and lists. It can be used to create the basic outline for our data dictionary:
+
+```{r}
+str(usedcars)
+```
+
+
+
+
